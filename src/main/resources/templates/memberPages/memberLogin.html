@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="btn-container">
+      <input type="text" placeholder="userId" name="UserId" id="UserId" class="form-control">
+      <input type="password" placeholder="password" name="memberPassword" id="memberPassword" class="form-control">
+      <button onclick="memberLogin()">login</button>
+  </div>
+</div>
+</body>
+
+<script th:inline="javascript">
+
+  const memberLogin = () => {
+    console.log("호출성공")
+    const UserId = document.getElementById("UserId").value;
+    const pw = document.getElementById("memberPassword").value;
+    $.ajax({
+      type:"post",
+      url:"/member/login",
+      data: {
+        UserId: UserId,
+        memberPassword: pw,
+      },
+      dataType:"text",
+      success : function (result){
+        if(result == "ok"){
+          alert("로그인성공")
+          location.href = "/";
+        }else{
+          alert("아이디 또는 비밀번호를 다시 확인해주세요")
+        }
+      },
+      error : function (){
+        alert("아이디 또는 비밀번호를 다시 확인해주세요")
+      }
+    })
+  }
+
+</script>
+
+</html>

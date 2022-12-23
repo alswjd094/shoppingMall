@@ -4,10 +4,9 @@ import com.example.shoppingmall.dto.MemberDTO;
 import com.example.shoppingmall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,4 +24,23 @@ public class MemberController {
         memberService.save(memberDTO);
         return "index";
     }
+
+    @GetMapping("/login")
+    public String loginForm(){
+        return "/memberPages/memberLogin";
+    }
+
+    @PostMapping("/login")
+    public @ResponseBody String memberLogin(@RequestParam("UserId")String UserId
+            , @RequestParam("memberPassword")String memberPassword, HttpSession session){
+        MemberDTO result = memberService.login(UserId,memberPassword);
+        System.out.println("UserId = " + UserId + ", memberPassword = " + memberPassword + ", session = " + session);
+        if(result!=null){
+            session.setAttribute("member",result);
+            return "ok";
+        }else {
+            return "no";
+        }
+    }
+
 }

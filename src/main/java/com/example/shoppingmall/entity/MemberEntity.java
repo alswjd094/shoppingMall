@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Table(name = "member_table")
-public class MemberEntity {
+public class MemberEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +33,7 @@ public class MemberEntity {
     private String memberMobile;
 
     @Column(length = 100)
-    private String memberAddress = "";
+    private String memberAddress;
 
     public static MemberEntity toSaveEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
