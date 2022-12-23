@@ -1,5 +1,6 @@
 package com.example.shoppingmall.entity;
 
+import com.example.shoppingmall.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,20 @@ public class MemberEntity {
     private String memberMobile;
 
     @Column(length = 100)
-    private String memberAddress;
+    private String memberAddress = "";
+
+    public static MemberEntity toSaveEntity(MemberDTO memberDTO){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setUserId(memberDTO.getUserId());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberMobile(memberDTO.getMemberMobile());
+        memberEntity.setMemberAddress(memberDTO.getMemberAddress());
+        return memberEntity;
+    }
+
+
+
 
 }
